@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AppZone - Premium Mod Apps</title>
+
+<style>
+:root {
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --text: #1e293b;
+    --text2: #64748b;
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --border: #e2e8f0;
+    --header: rgba(255,255,255,.9);
+}
+
+body.dark {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --text: #f8fafc;
+    --text2: #94a3b8;
+    --primary: #818cf8;
+    --primary-dark: #6366f1;
+    --border: #334155;
+    --header: rgba(15,23,42,.9);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    transition: .3s;
+}
+
+/* HEADER */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--header);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+}
+
+.navbar {
+    max-width: 1200px;
+    margin: auto;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: var(--primary);
+    white-space: nowrap;
+}
+
+.search-box {
+    flex: 1;
+    position: relative;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    outline: none;
+    background: var(--card);
+    color: var(--text);
+    font-size: 15px;
+}
+
+.theme-btn {
+    border: none;
+    background: var(--primary);
+    color: white;
+    width: 45px;
+    height: 42px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* HERO */
+
+.hero {
+    max-width: 1200px;
+    margin: auto;
+    padding: 50px 20px 25px;
+}
+
+.hero-box {
+    background: linear-gradient(135deg, #6366f1, #9333ea);
+    color: white;
+    padding: 40px;
+    border-radius: 20px;
+}
+
+.hero h1 {
+    font-size: 34px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    opacity: .9;
+}
+
+/* CATEGORIES */
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+.section-title {
+    margin: 20px 0;
+    font-size: 24px;
+}
+
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.category-btn {
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    padding: 10px 18px;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.category-btn.active,
+.category-btn:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+/* APP GRID */
+
+.app-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.app-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 16px;
+    transition: .25s;
+}
+
+.app-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,.12);
+}
+
+.app-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.app-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    object-fit: cover;
+    background: #ddd;
+}
+
+.app-name {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.app-category {
+    color: var(--text2);
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.app-desc {
+    color: var(--text2);
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 15px 0;
+}
+
+.app-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text2);
+    margin-bottom: 15px;
+}
+
+.download-btn {
+    display: block;
+    width: 100%;
+    border: none;
+    background: var(--primary);
+    color: white;
+    padding: 11px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.download-btn:hover {
+    background: var(--primary-dark);
+}
+
+/* MODAL */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    background: rgba(0,0,0,.65);
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--card);
+    color: var(--text);
+    width: 100%;
+    max-width: 500px;
+    border-radius: 20px;
+    padding: 25px;
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    right: 18px;
+    top: 12px;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.modal-app {
+    text-align: center;
+}
+
+.modal-app img {
+    width: 90px;
+    height: 90px;
+    border-radius: 20px;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.modal-app p {
+    color: var(--text2);
+    margin: 15px 0;
+    line-height: 1.6;
+}
+
+.modal-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.info-box {
+    padding: 12px;
+    background: var(--bg);
+    border-radius: 10px;
+    font-size: 13px;
+}
+
+/* EMPTY */
+
+.empty {
+    grid-column: 1/-1;
+    text-align: center;
+    padding: 50px;
+    color: var(--text2);
+}
+
+/* FOOTER */
+
+footer {
+    margin-top: 50px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 25px;
+    color: var(--text2);
+}
+
+@media(max-width:600px) {
+
+    .navbar {
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .hero {
+        padding: 25px 12px 10px;
+    }
+
+    .hero-box {
+        padding: 25px 20px;
+    }
+
+    .hero h1 {
+        font-size: 25px;
+    }
+
+    .container {
+        padding: 12px;
+    }
+
+    .app-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .app-card {
+        padding: 12px;
+    }
+
+    .app-top {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .app-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .app-name {
+        font-size: 15px;
+    }
+
+    .app-desc {
+        font-size: 12px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="navbar">
+
+        <div class="logo">⚡ AppZone</div>
+
+        <div class="search-box">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search apps..."
+                oninput="renderApps()"
+            >
+        </div>
+
+        <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">
+            🌙
+        </button>
+
+    </div>
+</header>
+
+
+<section class="hero">
+    <div class="hero-box">
+        <h1>Download Your Favorite Apps 🚀</h1>
+        <p>Games, tools, entertainment and more — all in one place.</p>
+    </div>
+</section>
+
+
+<main class="container">
+
+    <h2 class="section-title">Categories</h2>
+
+    <div class="categories">
+
+        <button class="category-btn active" onclick="setCategory('All', this)">
+            All
+        </button>
+
+        <button class="category-btn" onclick="setCategory('Games', this)">
+            🎮 Games
+        </button>
+
+        <button class="category-btn" onclick="setCategory('Tools', this)">
+            🛠 Tools
+        </button>
+
+        <button class="category-btn" onclick="setCategory('Entertainment', this)">
+            🎬 Entertainment
+        </button>
+
+        <button class="category-btn" onclick="setCategory('Education', this)">
+            📚 Education
+        </button>
+
+    </div>
+
+
+    <h2 class="section-title">Latest Apps</h2>
+
+    <div class="app-grid" id="appGrid"></div>
+
+</main>
+
+
+<!-- APP DETAILS POPUP -->
+
+<div class="modal" id="appModal">
+
+    <div class="modal-content">
+
+        <span class="close-btn" onclick="closeModal()">×</span>
+
+        <div class="modal-app">
+
+            <img id="modalIcon" src="" alt="App Icon">
+
+            <h2 id="modalName"></h2>
+
+            <p id="modalDescription"></p>
+
+            <div class="modal-info">
+
+                <div class="info-box">
+                    <b>Version</b><br>
+                    <span id="modalVersion"></span>
+                </div>
+
+                <div class="info-box">
+                    <b>Size</b><br>
+                    <span id="modalSize"></span>
+                </div>
+
+                <div class="info-box">
+                    <b>Category</b><br>
+                    <span id="modalCategory"></span>
+                </div>
+
+                <div class="info-box">
+                    <b>Updated</b><br>
+                    <span id="modalUpdated"></span>
+                </div>
+
+            </div>
+
+            <button class="download-btn" onclick="downloadApp()">
+                ⬇ Download
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<footer>
+    © 2026 AppZone. All rights reserved.
+</footer>
+
+
+<script>
+
+/*
+================================================
+ADD YOUR APPS HERE
+================================================
+
+हर नई app के लिए नीचे जैसा object add करें।
+
+IMPORTANT:
+केवल उन apps/files के download links लगाएँ
+जिन्हें distribute करने का आपको अधिकार हो।
+*/
+
+const apps = [
+
+    {
+        name: "Sample Game",
+        category: "Games",
+        version: "2.5.1",
+        size: "85 MB",
+        updated: "Today",
+        icon: "https://placehold.co/200x200?text=GAME",
+        description: "A sample game listing. Replace this with your own app description.",
+        download: "#"
+    },
+
+    {
+        name: "Photo Editor",
+        category: "Tools",
+        version: "5.2.0",
+        size: "45 MB",
+        updated: "2 days ago",
+        icon: "https://placehold.co/200x200?text=PHOTO",
+        description: "Edit and enhance your photos easily.",
+        download: "#"
+    },
+
+    {
+        name: "Music Player",
+        category: "Entertainment",
+        version: "3.1.4",
+        size: "30 MB",
+        updated: "1 week ago",
+        icon: "https://placehold.co/200x200?text=MUSIC",
+        description: "Simple music player with playlist support.",
+        download: "#"
+    },
+
+    {
+        name: "Learn English",
+        category: "Education",
+        version: "1.8.0",
+        size: "52 MB",
+        updated: "3 days ago",
+        icon: "https://placehold.co/200x200?text=LEARN",
+        description: "Practice English with lessons and exercises.",
+        download: "#"
+    },
+
+    {
+        name: "File Manager",
+        category: "Tools",
+        version: "4.0.2",
+        size: "18 MB",
+        updated: "Today",
+        icon: "https://placehold.co/200x200?text=FILES",
+        description: "Manage files and folders on your device.",
+        download: "#"
+    },
+
+    {
+        name: "Racing Game",
+        category: "Games",
+        version: "6.3.0",
+        size: "120 MB",
+        updated: "5 days ago",
+        icon: "https://placehold.co/200x200?text=RACE",
+        description: "Fast-paced racing game.",
+        download: "#"
+    }
+
+];
+
+
+let selectedCategory = "All";
+let selectedApp = null;
+
+
+/* RENDER APPS */
+
+function renderApps() {
+
+    const grid = document.getElementById("appGrid");
+
+    const search = document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase();
+
+    const filteredApps = apps.filter(app => {
+
+        const matchCategory =
+            selectedCategory === "All" ||
+            app.category === selectedCategory;
+
+        const matchSearch =
+            app.name.toLowerCase().includes(search) ||
+            app.category.toLowerCase().includes(search);
+
+        return matchCategory && matchSearch;
+
+    });
+
+
+    if (filteredApps.length === 0) {
+
+        grid.innerHTML = `
+            <div class="empty">
+                <h3>No apps found 😕</h3>
+                <p>Try another search.</p>
+            </div>
+        `;
+
+        return;
+    }
+
+
+    grid.innerHTML = filteredApps.map(app => `
+
+        <div class="app-card">
+
+            <div class="app-top">
+
+                <img
+                    class="app-icon"
+                    src="${app.icon}"
+                    alt="${app.name}"
+                >
+
+                <div>
+
+                    <div class="app-name">
+                        ${app.name}
+                    </div>
+
+                    <div class="app-category">
+                        ${app.category}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="app-desc">
+                ${app.description}
+            </div>
+
+
+            <div class="app-info">
+
+                <span>v${app.version}</span>
+
+                <span>${app.size}</span>
+
+            </div>
+
+
+            <button
+                class="download-btn"
+                onclick="openApp(${apps.indexOf(app)})"
+            >
+                View & Download
+            </button>
+
+        </div>
+
+    `).join("");
+
+}
+
+
+/* CATEGORY */
+
+function setCategory(category, button) {
+
+    selectedCategory = category;
+
+    document
+        .querySelectorAll(".category-btn")
+        .forEach(btn => btn.classList.remove("active"));
+
+    button.classList.add("active");
+
+    renderApps();
+
+}
+
+
+/* OPEN APP DETAILS */
+
+function openApp(index) {
+
+    selectedApp = apps[index];
+
+    document.getElementById("modalIcon").src =
+        selectedApp.icon;
+
+    document.getElementById("modalName").textContent =
+        selectedApp.name;
+
+    document.getElementById("modalDescription").textContent =
+        selectedApp.description;
+
+    document.getElementById("modalVersion").textContent =
+        selectedApp.version;
+
+    document.getElementById("modalSize").textContent =
+        selectedApp.size;
+
+    document.getElementById("modalCategory").textContent =
+        selectedApp.category;
+
+    document.getElementById("modalUpdated").textContent =
+        selectedApp.updated;
+
+    document
+        .getElementById("appModal")
+        .classList.add("show");
+
+}
+
+
+/* CLOSE MODAL */
+
+function closeModal() {
+
+    document
+        .getElementById("appModal")
+        .classList.remove("show");
+
+}
+
+
+/* DOWNLOAD */
+
+function downloadApp() {
+
+    if (!selectedApp) return;
+
+    if (
+        selectedApp.download === "#" ||
+        selectedApp.download === ""
+    ) {
+
+        alert(
+            "Download link अभी add नहीं किया गया है।"
+        );
+
+        return;
+    }
+
+    window.open(
+        selectedApp.download,
+        "_blank"
+    );
+
+}
+
+
+/* DARK MODE */
+
+function toggleTheme() {
+
+    document.body.classList.toggle("dark");
+
+    const isDark =
+        document.body.classList.contains("dark");
+
+    document.getElementById("themeBtn").textContent =
+        isDark ? "☀️" : "🌙";
+
+    localStorage.setItem(
+        "theme",
+        isDark ? "dark" : "light"
+    );
+
+}
+
+
+/* LOAD SAVED THEME */
+
+if (localStorage.getItem("theme") === "dark") {
+
+    document.body.classList.add("dark");
+
+    document.getElementById("themeBtn").textContent =
+        "☀️";
+
+}
+
+
+/* CLOSE POPUP WHEN CLICKING OUTSIDE */
+
+document
+    .getElementById("appModal")
+    .addEventListener("click", function(e) {
+
+        if (e.target === this) {
+            closeModal();
+        }
+
+    });
+
+
+/* START */
+
+renderApps();
+
+</script>
+
+</body>
+</html>
